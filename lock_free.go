@@ -1,4 +1,4 @@
-package gocas
+package lockfree
 
 import "sync/atomic"
 
