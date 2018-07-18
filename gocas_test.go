@@ -1,4 +1,4 @@
-package gomaphore
+package gocas
 
 import (
 	"reflect"
@@ -9,7 +9,7 @@ import (
 const size = 1000
 
 func TestGomaphore(t *testing.T) {
-	semaphore := new(Gomaphore)
+	cas := new(GoCas)
 
 	cnt := 0
 	nums := make([]int, 0, size)
@@ -19,10 +19,10 @@ func TestGomaphore(t *testing.T) {
 		wg.Add(1)
 		go func(i int) {
 			defer wg.Done()
-			semaphore.Wait()
+			cas.Wait()
 			nums = append(nums, cnt)
 			cnt++
-			semaphore.Signal()
+			cas.Signal()
 		}(i)
 	}
 
