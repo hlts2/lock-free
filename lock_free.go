@@ -2,13 +2,25 @@ package gocas
 
 import "sync/atomic"
 
-// GoCas is object that realizes lock-free resource sharing
-type GoCas struct {
+type LockFree interface {
+	Wait()
+	Signal()
+}
+
+// lockFree impl LockFree
+type lockFree struct {
 	flag int32
 }
 
+// New initializes a new instance of the LockFree
+func New() LockFree {
+	return &lockFree{
+		flag: 0,
+	}
+}
+
 // Wait waits until the shared counter is available. Update the sharing counter if available
-func (g *GoCas) Wait() {
+func (g *lockFree) Wait() {
 	for {
 		if g.flag == 0 && atomic.CompareAndSwapInt32(&g.flag, 0, 1) {
 			break
@@ -17,6 +29,6 @@ func (g *GoCas) Wait() {
 }
 
 // Signal signals termination of use of shared counter
-func (g *GoCas) Signal() {
+func (g *lockFree) Signal() {
 	g.flag = 0
 }

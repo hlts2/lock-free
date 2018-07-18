@@ -8,8 +8,8 @@ import (
 
 const size = 1000
 
-func TestGomaphore(t *testing.T) {
-	cas := new(GoCas)
+func TestLockFree(t *testing.T) {
+	lf := New()
 
 	cnt := 0
 	nums := make([]int, 0, size)
@@ -19,10 +19,10 @@ func TestGomaphore(t *testing.T) {
 		wg.Add(1)
 		go func(i int) {
 			defer wg.Done()
-			cas.Wait()
+			lf.Wait()
 			nums = append(nums, cnt)
 			cnt++
-			cas.Signal()
+			lf.Signal()
 		}(i)
 	}
 
