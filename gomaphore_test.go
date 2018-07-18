@@ -2,7 +2,6 @@ package gomaphore
 
 import (
 	"reflect"
-	"sort"
 	"sync"
 	"testing"
 )
@@ -28,8 +27,6 @@ func TestGomaphore(t *testing.T) {
 	}
 
 	wg.Wait()
-
-	sort.Ints(nums)
 
 	expected := make([]int, 0, size)
 	for i := 0; i < size; i++ {
