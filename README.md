@@ -1,1 +1,1 @@
-# golock
+# gomaphore
