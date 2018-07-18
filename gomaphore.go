@@ -1,7 +1,5 @@
 package gomaphore
 
-// TODO write test code
-
 import "sync/atomic"
 
 // Gomaphore is semaphore object
