@@ -1,6 +1,9 @@
 package lockfree
 
-import "sync/atomic"
+import (
+	"sync/atomic"
+	"time"
+)
 
 type LockFree interface {
 	Wait()
@@ -25,6 +28,8 @@ func (g *lockFree) Wait() {
 		if g.flag == 0 && atomic.CompareAndSwapInt32(&g.flag, 0, 1) {
 			break
 		}
+
+		time.Sleep(1 * time.Nanosecond)
 	}
 }
 
